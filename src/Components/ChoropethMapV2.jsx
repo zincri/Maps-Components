@@ -1,12 +1,14 @@
 import React, {useState} from "react";
-import '../App.css';
 import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
+import { MagicSpinner } from "react-spinners-kit";
 
-function ChoropethMap({center, data, fillColor, borderColor}) {
-    let _message = 'El tipo del parametro data es requerido y debe ser de tipo .json, con estructura geometrica (geojson).';
+function ChoropethMap({center, zoom, data, fillColor, borderColor}) {
+    //let _message = 'El tipo del parametro data es requerido y debe ser de tipo .json, con estructura geometrica (geojson).';
     const _center = center? center : [20.678416, -101.354231];
+    const _zoom = zoom? zoom : 12;
     const _data = data ? data : null;
+    const flag = Object.keys(_data).length === 0 ? false : true; 
     const _fillColor = fillColor? fillColor : '#F28F3B';
     const _borderColor = borderColor? borderColor : 'White';
 
@@ -70,8 +72,8 @@ function ChoropethMap({center, data, fillColor, borderColor}) {
     return (
         <>
         {
-            _data ?
-            <Map zoom={12} center={_center} style={{ width: '100%', height: '100vh'}}>
+            flag ?
+            <Map zoom={_zoom} center={_center} style={{ width: '100%', height: '100vh'}}>
                 
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -79,7 +81,14 @@ function ChoropethMap({center, data, fillColor, borderColor}) {
                 />
                 <div className="leaflet-control-container">
                 <div className="leaflet-top leaflet-right">
-                    <div className="info leaflet-control">
+                    <div className="leaflet-control" style={{
+                        'padding': '6px 8px',
+                        'font': '14px/16px Arial, Helvetica, sans-serif',
+                        'background': 'white',
+                        'background': 'rgba(255,255,255,0.8)',
+                        'box-shadow': '0 0 15px rgba(0,0,0,0.2)',
+                        'border-radius': '5px',
+                    }}>
                             <h4>Nombre y Clave del Estado:</h4>
                             {(prop.nom_mun !== '') ?
                             <>
@@ -91,7 +100,16 @@ function ChoropethMap({center, data, fillColor, borderColor}) {
                 </div>
                 {geojson}
             </Map>
-            : <h1>{_message}</h1>
+            : 
+            
+            <div style={{
+                'height': '500pt',
+                'display': 'flex',
+                'justify-content': 'center',
+                'align-items': 'center'
+              }}>
+                <MagicSpinner size={70} color={"#686769"} loading={true}></MagicSpinner>
+            </div>
         }
         </> 
     );

@@ -1,11 +1,14 @@
 import React from "react";
 import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 import L from 'leaflet';
+import { MagicSpinner } from "react-spinners-kit";
 
-function ChoropethMap({center, data, fillColor, borderColor}) {
-    let _message = 'El tipo del parametro data es requerido y debe ser de tipo .json, con estructura geometrica (geojson).';
+function ChoropethMap({center, zoom, data, fillColor, borderColor}) {
+    //let _message = 'El tipo del parametro data es requerido y debe ser de tipo .json, con estructura geometrica (geojson).';
     const _center = center? center : [20.678416, -101.354231];
+    const _zoom = zoom? zoom : 12;
     const _data = data ? data : null;
+    const flag = Object.keys(_data).length === 0 ? false : true; 
     const _fillColor = fillColor? fillColor : '#F28F3B';
     const _borderColor = borderColor? borderColor : 'White';
 
@@ -62,15 +65,23 @@ function ChoropethMap({center, data, fillColor, borderColor}) {
     return (
         <>
         {
-            _data ?
-            <Map zoom={12} center={_center} style={{ width: '100%', height: '100vh'}}>
+            flag ?
+            <Map zoom={_zoom} center={_center} style={{ width: '100%', height: '100vh'}}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
                 {geojson}
             </Map>
-            : <h1>{_message}</h1>
+            : 
+            <div style={{
+                'height': '500pt',
+                'display': 'flex',
+                'justify-content': 'center',
+                'align-items': 'center'
+              }}>
+                <MagicSpinner size={70} color={"#686769"} loading={true}></MagicSpinner>
+            </div>
         }
         </> 
     );
