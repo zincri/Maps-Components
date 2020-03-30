@@ -32,6 +32,7 @@ function ChoropethMap({center, zoom, data, fillColor, borderColor}) {
             dashArray: '',
             fillOpacity: 0.7
         });
+        console.log("highlightFeature",layer);
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
             layer.bringToFront();
         }
@@ -84,10 +85,9 @@ function ChoropethMap({center, zoom, data, fillColor, borderColor}) {
                     <div className="leaflet-control" style={{
                         'padding': '6px 8px',
                         'font': '14px/16px Arial, Helvetica, sans-serif',
-                        'background': 'white',
                         'background': 'rgba(255,255,255,0.8)',
-                        'box-shadow': '0 0 15px rgba(0,0,0,0.2)',
-                        'border-radius': '5px',
+                        'boxShadow': '0 0 15px rgba(0,0,0,0.2)',
+                        'bordeRadius': '5px',
                     }}>
                             <h4>Nombre y Clave del Estado:</h4>
                             {(prop.nom_mun !== '') ?
@@ -105,10 +105,10 @@ function ChoropethMap({center, zoom, data, fillColor, borderColor}) {
             <div style={{
                 'height': '500pt',
                 'display': 'flex',
-                'justify-content': 'center',
-                'align-items': 'center'
+                'justifyContent': 'center',
+                'alignItems': 'center'
               }}>
-                <MagicSpinner size={70} color={"#686769"} loading={true}></MagicSpinner>
+                <MagicSpinner size={70} color={"#008000"} loading={true}></MagicSpinner>
             </div>
         }
         </> 

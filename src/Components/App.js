@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Municipios from '../source/Municipios.json';
+import Municipios from '../source/MunConCol.json';
 import Consulta from '../source/Consulta.json';
 import ChoropethMapV1 from './ChoropethMapV1';
 import ChoropethMapV2 from './ChoropethMapV2';
+import ChoropethMapV3 from './ChoropethMapV3';
+
 
 const position = {
   latitude: 20.678416,
@@ -30,9 +32,9 @@ useEffect(() => {
       }
       let res = await fetch('http://127.0.0.1:8000/api/getMunicipios',config);
       let data = await res.json();
-      var x = JSON.parse(data);
+      var json_parser = JSON.parse(data);
       setMun(
-        x
+        json_parser
       );
       setFlag(true);
 
@@ -46,13 +48,13 @@ useEffect(() => {
 
   return (
     <>
-      <ChoropethMapV2 
+      <ChoropethMapV3
         center={[position.latitude, position.longitude]}
         zoom={8} 
         data={mun} 
         fillColor={'#F44F3B'} 
         borderColor={'white'}>
-      </ChoropethMapV2>
+      </ChoropethMapV3>
     </> 
   );
 }
