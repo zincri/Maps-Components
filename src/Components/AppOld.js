@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from "react";
+import ChoropethMapV3 from './ChoropethMapV3';
+
+
+const position = {
+  latitude: 20.678416,
+  longitude: -101.354231
+};
+
 
 
 function App() {
 
-  //const [municipios, setMunicipios] = useState({});
-  //const [rangos, setRangos] = useState([]);
+  const [municipios, setMunicipios] = useState({});
+  const [rangos, setRangos] = useState([]);
 
 useEffect(() => {
-  /* async function getMunicipios() {
+  async function getMunicipios() {
     try {
 
       let config = {
@@ -47,15 +55,23 @@ useEffect(() => {
       console.log("Se fue al catch");
     }
 
-  }; */
+  };
 
-  //getMunicipios();
-  //getRangos();
+  getMunicipios();
+  getRangos();
 }, [])
 
   return (
     <>
-      zincri
+      <ChoropethMapV3
+        key={"ChoropethMapV3"}
+        center={[position.latitude, position.longitude]}
+        zoom={8} 
+        data={municipios}
+        rangos={rangos}
+        fillColor={'#F44F3B'} 
+        borderColor={'white'}>
+      </ChoropethMapV3>
     </> 
   );
 }
